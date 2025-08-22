@@ -1,0 +1,6 @@
+services:
+  web:
+    image: DOCKERHUB_USERNAME/cicd-docker-local:latest  # <-- replace DOCKERHUB_USERNAME
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
