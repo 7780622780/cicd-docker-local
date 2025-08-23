@@ -1,11 +1,11 @@
 name: Test Self-Hosted Runner
 
 on:
-  workflow_dispatch:   # lets you trigger manually from GitHub
+  workflow_dispatch:   # allows you to trigger manually
 
 jobs:
   test:
-    runs-on: [self-hosted]   # this will run on YOUR runner
+    runs-on: [self-hosted]   # this forces GitHub to use YOUR runner
     steps:
       - name: Say hello
         run: echo "Hello from my self-hosted runner on Windows!"
