@@ -1,11 +1,7 @@
 name: Test Self-Hosted Runner
 
 on:
-<<<<<<< HEAD
-  workflow_dispatch:   # only runs when you click "Run workflow" in GitHub
-=======
-  workflow_dispatch:
->>>>>>> 699b05fee5fb0241b2a63e34df930a3de50effdd
+  workflow_dispatch:   # only runs manually
 
 jobs:
   test:
