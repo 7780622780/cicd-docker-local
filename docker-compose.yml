@@ -1,3 +1,33 @@
+version: "3.8"
+
+services:
+  # Your main application (this is the one built & pushed by GitHub Actions)
+  app:
+    image: DOCKERHUB_USERNAME/cicd-docker-local:latest
+    container_name: myapp
+    ports:
+      - "3000:3000"
+    networks:
+      - monitor
+    depends_on:
+      - prometheus
+      - alertmanager
+
+  # Prometheus service
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+    ports:
+      - "9090:9090"
+    networks:
+      - monitor
+
+  # Alertmanager service
   alertmanager:
     image: prom/alertmanager:latest
     container_name: alertmanager
@@ -10,3 +40,7 @@
       - "9093:9093"
     networks:
       - monitor
+
+networks:
+  monitor:
+    driver: bridge
