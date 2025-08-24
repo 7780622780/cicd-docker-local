@@ -55,7 +55,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Substitute Docker Hub username in compose file
-        run: sed -i "s|DOCKERHUB_USERNAME|${{ secrets.DOCKERHUB_USERNAME }}|g" docker-compose.yml
+        run: sed -i "s|DOCKER_USERNAME|${{ secrets.DOCKER_USERNAME }}|g" docker-compose.yml
       - name: Pull & start containers
         run: |
           docker compose pull
