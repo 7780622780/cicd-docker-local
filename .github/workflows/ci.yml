@@ -55,7 +55,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Substitute Docker Hub username in compose file
-        shell: pwsh
+        shell: cmd
         run: |
           (Get-Content docker-compose.yml) -replace 'DOCKER_USERNAME', '${{ secrets.DOCKER_USERNAME }}' | Set-Content docker-compose.yml
       - name: Pull & start containers
