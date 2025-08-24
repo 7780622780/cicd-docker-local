@@ -3,7 +3,7 @@ version: "3.8"
 services:
   # Your main application (this is the one built & pushed by GitHub Actions)
   app:
-    image: DOCKERHUB_USERNAME/cicd-docker-local:latest
+    image: DOCKER_USERNAME/cicd-docker-local:latest
     container_name: myapp
     ports:
       - "3000:3000"
