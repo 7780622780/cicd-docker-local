@@ -6,7 +6,7 @@ on:
   pull_request:
 
 env:
-  IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/cicd-docker-local
+  IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/cicd-docker-local
 
 jobs:
   test:
