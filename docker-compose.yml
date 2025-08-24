@@ -1,6 +1,12 @@
-services:
-  web:
-    image: DOCKERHUB_USERNAME/cicd-docker-local:latest  # <-- replace DOCKERHUB_USERNAME
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: alertmanager
+    volumes:
+      - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
+    command:
+      - "--config.file=/etc/alertmanager/alertmanager.yml"
+      - "--storage.path=/alertmanager"
     ports:
-      - "3000:3000"
-    restart: unless-stopped
+      - "9093:9093"
+    networks:
+      - monitor
