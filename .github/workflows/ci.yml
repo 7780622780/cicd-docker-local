@@ -54,13 +54,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Substitute Docker Hub username in compose file
         shell: cmd
         run: powershell -Command "(Get-Content docker-compose.yml) -replace 'DOCKER_USERNAME', '${{ secrets.DOCKER_USERNAME }}' | Set-Content docker-compose.yml"
+
+      - name: Cleanup old containers
+        run: |
+          docker rm -f alertmanager || true
+          docker rm -f prometheus || true
+
       - name: Pull & start containers
         run: |
           docker compose pull
           docker compose up -d
+
       - name: Verify health
         run: |
           sleep 3
