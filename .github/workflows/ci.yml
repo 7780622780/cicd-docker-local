@@ -60,7 +60,7 @@ jobs:
         run: powershell -Command "(Get-Content docker-compose.yml) -replace 'DOCKER_USERNAME', '${{ secrets.DOCKER_USERNAME }}' | Set-Content docker-compose.yml"
 
       - name: Cleanup old containers
-        shell: pwsh
+        shell: cmd
         run: |
           docker rm -f alertmanager || true
           docker rm -f prometheus || true
