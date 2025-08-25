@@ -73,5 +73,5 @@ jobs:
       - name: Verify health
         run: |
           sleep 3
-          curl -fsS http://localhost:3000/health
+          curl -fss http://localhost:3000/health
           echo "App is healthy"
