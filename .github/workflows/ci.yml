@@ -71,7 +71,7 @@ jobs:
           docker compose up -d
 
       - name: Verify health
-        shell: pwsh
+        shell: cmd
         run: |
           Start-Sleep -Seconds 5
           Invoke-WebRequest -Uri http://localhost:3000/health
