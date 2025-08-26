@@ -73,6 +73,6 @@ jobs:
       - name: Verify health
         shell: cmd
         run: |
-          Start-Sleep -Seconds 5
-          Invoke-WebRequest -Uri http://localhost:3000/health
-          Write-Output "App is healthy"
+          timeout /t 5
+          curl -f http://localhost:3000/health
+          echo App is healthy
