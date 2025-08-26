@@ -71,8 +71,8 @@ jobs:
           docker compose up -d
 
       - name: Verify health
+        shell: pwsh
         run: |
-          sleep 3
-          curl -fsS http://localhost:3000/health
-          echo "App is healthy"
-        shell: bash
+          Start-Sleep -Seconds 5
+          Invoke-WebRequest -Uri http://localhost:3000/health
+          Write-Output "App is healthy"
