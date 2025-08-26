@@ -1,57 +1,108 @@
-# CI/CD with GitHub Actions & Docker (No Cloud Needed)
+📌 CI/CD Pipeline with GitHub Actions & Docker
 
-This repo demonstrates a full CI/CD pipeline that builds a Docker image, runs tests, pushes to Docker Hub, and deploys locally using either **Docker Compose** or **Minikube**.
+📖 Introduction
 
-## What you get
-- Node.js Express sample app with `/`, `/health`, and `/version`
-- Jest tests
-- `Dockerfile` and `docker-compose.yml`
-- Kubernetes manifests for Minikube (`k8s/app.yaml`)
-- Single GitHub Actions workflow that: tests -> builds -> pushes -> deploys (to a **self-hosted** runner on your local VM)
+This project demonstrates a complete CI/CD pipeline using GitHub Actions, Docker, and Docker Hub.
+The pipeline automatically builds, tests, and deploys a containerized application on a local VM using Docker Compose.
 
-## Prerequisites
-- Docker & Docker Compose installed on your **local VM / laptop**
-- (Optional) Minikube + kubectl if you prefer K8s
-- Docker Hub account + a repo named `cicd-docker-local`
-- GitHub repository for this code
-- A **self-hosted GitHub Actions runner** installed on your local VM (for the deploy step)
+🎯 Objectives
 
-### 1) Fork or push this repo to GitHub
-Create a new GitHub repo and push these files.
+Automate the build and test process with GitHub Actions
 
-### 2) Create Docker Hub repo
-- Create a public repo named `cicd-docker-local` under your Docker Hub username.
+Build and push Docker images to Docker Hub
 
-### 3) Add GitHub Secrets
-In your GitHub repo → **Settings → Secrets and variables → Actions → New repository secret** add:
-- `DOCKERHUB_USERNAME` – your Docker Hub username
-- `DOCKERHUB_TOKEN` – a Docker Hub Access Token
+Deploy the application on a self-hosted runner / local VM
 
-### 4) Update deploy target
-- In `docker-compose.yml` and `k8s/app.yaml`, replace `DOCKERHUB_USERNAME` with your actual Docker Hub username. The workflow also auto-replaces this during deploy.
+Ensure end-to-end automation from code commit → deployment
 
-### 5) Install a self-hosted runner on your local VM
-Follow GitHub docs: Settings → Actions → Runners → New self-hosted runner.
-- On your VM run the provided commands from GitHub to download & configure the runner.
-- Start the runner: `./run.sh`
-- Ensure Docker is available to that runner user.
+🛠️ Tools & Technologies Used
 
-### 6) Run the pipeline
-- Push to `main` branch → tests run → image builds & pushes → local deploy via Compose.
-- Verify locally: `curl http://localhost:3000/health` should return `{ "status": "ok" }`.
+GitHub Actions – CI/CD workflow automation
 
-### 7) Minikube path (optional)
-- Start minikube: `minikube start`
-- Replace `DOCKERHUB_USERNAME` in `k8s/app.yaml`
-- Apply: `kubectl apply -f k8s/app.yaml`
-- Access: `minikube service cicd-docker-local --url` or `http://$(minikube ip):30080`
+Docker – Containerization
 
-### Screenshots to capture
-- GitHub Actions workflow green checks
-- Docker Hub repo showing pushed tags (`latest` and commit SHA)
-- Running container: `docker ps` and browser `http://localhost:3000/`
-- (If K8s) `kubectl get pods,svc` and the app in browser via NodePort
+Docker Hub – Image registry
 
----
+Docker Compose – Multi-container orchestration
 
-**Note**: The workflow uses a self-hosted runner for deploy (so it deploys to your local VM). If you do not want auto-deploy, you can disable the `deploy_compose` job or trigger it manually using `workflow_dispatch`.
+Node.js – Sample application runtime
+
+Self-hosted Runner (Windows/VM) – For local deployment
+
+⚙️ Project Workflow
+
+Run Tests
+
+On every push/PR, GitHub Actions installs dependencies and runs unit tests.
+
+Build & Push Docker Image
+
+On push to main, Docker images are built and tagged with both latest and commit SHA.
+
+Images are pushed to Docker Hub.
+
+Deploy on Local VM
+
+Self-hosted runner pulls the latest Docker image.
+
+docker-compose up -d runs the containerized app.
+
+Health check verifies the app is running.
+
+📂 Repository Structure
+.
+├── .github/
+│   └── workflows/
+│       └── ci.yml          # GitHub Actions workflow
+|
+├── Dockerfile              # Docker image build instructions
+├── docker-compose.yml      # Deployment config
+├── package.json            # Node.js project config
+├── README.md               # Project documentation
+
+🚀 How to Run Locally
+
+Clone the repo:
+
+git clone https://github.com/7780622780/cicd-docker-local
+cd cicd-docker-local
+
+
+Build the Docker image:
+
+docker build -t vignesh1003/cicd-docker-local .
+
+
+Start with Docker Compose:
+
+docker compose up -d
+
+
+Verify the app:
+
+curl http://localhost:3000/health
+
+🔗 Docker Hub Repository
+
+Docker Hub – cicd-docker-local
+
+📸 Screenshots (to include)
+
+✅ GitHub Actions successful workflow
+
+✅ Docker Hub image pushed
+
+✅ Running containers (docker ps)
+
+✅ Application running in browser (http://localhost:3000/health)
+
+📝 Conclusion
+
+This project successfully implements a CI/CD pipeline with GitHub Actions and Docker.
+It ensures:
+
+Automated testing, building, and pushing of Docker images
+
+Continuous deployment on a self-hosted runner/local VM
+
+Reliable delivery of containerized applications
