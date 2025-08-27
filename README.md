@@ -97,6 +97,8 @@ Docker Hub – cicd-docker-local
 
 ✅ Application running in browser (http://localhost:3000/health)
 
+✅ Grafana home page
+
 📝 Conclusion
 
 This project successfully implements a CI/CD pipeline with GitHub Actions and Docker.
